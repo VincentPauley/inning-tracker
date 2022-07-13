@@ -17,7 +17,7 @@ describe('class: InningTracker', () => {
     test('the inning tracker can correctly describe the top of the first', () => {
       const inningSummary = testInningTracker.summary();
       expect(inningSummary).toBe(
-        `it's currently: top of the 1, we're playing 9 total`
+        `it's currently: Top of the 1, we're playing 9 total`
       );
     });
 
@@ -26,7 +26,7 @@ describe('class: InningTracker', () => {
       const inningSummary = testInningTracker.summary();
 
       expect(inningSummary).toBe(
-        `it's currently: mid of the 1, we're playing 9 total`
+        `it's currently: Middle of the 1, we're playing 9 total`
       );
     });
   });

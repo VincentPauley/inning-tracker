@@ -1,24 +1,30 @@
+import InningPhase from '../interfaces/InningPhase';
+
 export default class Inning {
-  phases: string[] = ['top', 'mid', 'bottom', 'end'];
+  private _phases: InningPhase[] = [
+    { name: 'Top', abbreviation: 'top' },
+    { name: 'Middle', abbreviation: 'mid' },
+    { name: 'Bottom', abbreviation: 'bottom' },
+    { name: 'End', abbreviation: 'end' }
+  ];
 
   currentPhasePosition: number = 0;
 
   maxPosition(): number {
-    return this.phases.length - 1;
+    return this._phases.length - 1;
   }
 
   // getters
-  activePhase(): string {
-    return this.phases[this.currentPhasePosition];
+  activePhase(): InningPhase {
+    return this._phases[this.currentPhasePosition];
   }
 
   // methods...
-  nextPhase(): string {
-    if (this.currentPhasePosition < this.maxPosition()) {
-      this.currentPhasePosition++;
-      return this.activePhase();
-    } else {
-      return 'complete';
+  nextPhase(): InningPhase {
+    if (this.currentPhasePosition > this.maxPosition()) {
+      throw new Error('impossible count');
     }
+    this.currentPhasePosition++;
+    return this.activePhase();
   }
 }

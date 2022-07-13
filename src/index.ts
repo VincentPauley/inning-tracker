@@ -45,7 +45,7 @@ class InningTracker {
 
   summary() {
     const inningPhase = this.activeInning.activePhase();
-    return `it's currently: ${inningPhase} of the ${this._inningNumber}, we're playing ${this.totalInnings} total`;
+    return `it's currently: ${inningPhase.name} of the ${this._inningNumber}, we're playing ${this.totalInnings} total`;
   }
 }
 
