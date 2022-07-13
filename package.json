@@ -1,0 +1,36 @@
+{
+  "name": "inning-tracker",
+  "version": "1.0.0",
+  "description": "Focused module for tracking the state of innings during a baseball game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VincentPauley/inning-tracker.git"
+  },
+  "keywords": [
+    "baseball",
+    "inning",
+    "scoreboard"
+  ],
+  "author": "Vincent Pauley (Vinnie)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VincentPauley/inning-tracker/issues"
+  },
+  "homepage": "https://github.com/VincentPauley/inning-tracker#readme",
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/jest": "^28.1.4",
+    "jest": "^28.1.2",
+    "ts-jest": "^28.0.5",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-node-externals": "^3.0.0"
+  }
+}
