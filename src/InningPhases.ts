@@ -15,6 +15,11 @@ const InningPhases: InningPhase[] = [
     name: 'Bottom',
     abbreviation: 'bot',
     active: false
+  },
+  {
+    name: 'End',
+    abbreviation: 'end',
+    active: false
   }
 ];
 
