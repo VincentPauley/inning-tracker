@@ -24,3 +24,16 @@ const InningPhases: InningPhase[] = [
 ];
 
 export default InningPhases;
+
+// potential redo  of this for faster execution
+class Inning {
+  phases = ['top', 'mid', 'bottom', 'end'];
+
+  currentPhasePosition: number = 0;
+
+  activePhase(): string {
+    return this.phases[this.currentPhasePosition];
+  }
+}
+
+// could be that inning should be a class?

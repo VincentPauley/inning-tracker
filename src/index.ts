@@ -2,25 +2,34 @@ import InningPhase from './interfaces/InningPhase';
 
 import InningPhases from './InningPhases';
 
+import Inning from './classes/Inning';
+
 class InningTracker {
   // rules
   totalInnings: number;
   extraInningsAllowed: boolean;
 
   // state
-  inningData: InningPhase[][] = [];
+  inningData: any[] = [];
+
+  activeInning: any;
 
   constructor(totalInnings: number = 9, extraInningsAllowed: boolean = true) {
     this.totalInnings = totalInnings;
     this.extraInningsAllowed = extraInningsAllowed;
   }
 
-  currentInning() {
+  currentInning(): number {
     return this.inningData.length;
   }
 
-  incrementInning() {
-    this.inningData.push(InningPhases);
+  incrementInning(): void {
+    // TODO: eventually need to check to see if a winner can be made as  well
+    if (this.currentInning() < this.totalInnings) {
+      const newInning = new Inning();
+      this.inningData.push(newInning);
+      this.activeInning = newInning;
+    }
   }
 
   startGame() {
@@ -28,9 +37,10 @@ class InningTracker {
   }
 
   summary() {
-    return `it's currently inning: ${this.currentInning()} of ${
+    const inningPhase = this.activeInning.activePhase();
+    return `it's currently: ${inningPhase} of the ${this.currentInning()}, we're playing ${
       this.totalInnings
-    }`;
+    } total`;
   }
 }
 
