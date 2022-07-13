@@ -10,9 +10,11 @@ class InningTracker {
   extraInningsAllowed: boolean;
 
   // state
-  inningData: any[] = [];
+  private _inningNumber: number = 0;
 
   activeInning: any;
+
+  // getters
 
   // possibly a separate configuration object and a setup object to start off in different innings
   constructor(totalInnings: number = 9, extraInningsAllowed: boolean = true) {
@@ -20,15 +22,11 @@ class InningTracker {
     this.extraInningsAllowed = extraInningsAllowed;
   }
 
-  currentInning(): number {
-    return this.inningData.length;
-  }
-
   incrementInning(): void {
     // TODO: eventually need to check to see if a winner can be made as  well
-    if (this.currentInning() < this.totalInnings) {
+    if (this._inningNumber < this.totalInnings) {
       const newInning = new Inning(); // TODO: should receive inning number
-      this.inningData.push(newInning);
+      this._inningNumber++;
       this.activeInning = newInning;
     }
   }
@@ -47,9 +45,7 @@ class InningTracker {
 
   summary() {
     const inningPhase = this.activeInning.activePhase();
-    return `it's currently: ${inningPhase} of the ${this.currentInning()}, we're playing ${
-      this.totalInnings
-    } total`;
+    return `it's currently: ${inningPhase} of the ${this._inningNumber}, we're playing ${this.totalInnings} total`;
   }
 }
 
