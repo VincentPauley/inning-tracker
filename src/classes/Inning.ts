@@ -1,7 +1,11 @@
 export default class Inning {
-  phases = ['top', 'mid', 'bottom', 'end'];
+  phases: string[] = ['top', 'mid', 'bottom', 'end'];
 
   currentPhasePosition: number = 0;
+
+  maxPosition(): number {
+    return this.phases.length - 1;
+  }
 
   // getters
   activePhase(): string {
@@ -9,4 +13,12 @@ export default class Inning {
   }
 
   // methods...
+  nextPhase(): string {
+    if (this.currentPhasePosition < this.maxPosition()) {
+      this.currentPhasePosition++;
+      return this.activePhase();
+    } else {
+      return 'complete';
+    }
+  }
 }

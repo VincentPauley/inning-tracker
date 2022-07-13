@@ -20,5 +20,14 @@ describe('class: InningTracker', () => {
         `it's currently: top of the 1, we're playing 9 total`
       );
     });
+
+    test('the inning tracker can correctly move an inning into the next phase', () => {
+      testInningTracker.nextInningPhase();
+      const inningSummary = testInningTracker.summary();
+
+      expect(inningSummary).toBe(
+        `it's currently: mid of the 1, we're playing 9 total`
+      );
+    });
   });
 });

@@ -14,6 +14,7 @@ class InningTracker {
 
   activeInning: any;
 
+  // possibly a separate configuration object and a setup object to start off in different innings
   constructor(totalInnings: number = 9, extraInningsAllowed: boolean = true) {
     this.totalInnings = totalInnings;
     this.extraInningsAllowed = extraInningsAllowed;
@@ -26,7 +27,7 @@ class InningTracker {
   incrementInning(): void {
     // TODO: eventually need to check to see if a winner can be made as  well
     if (this.currentInning() < this.totalInnings) {
-      const newInning = new Inning();
+      const newInning = new Inning(); // TODO: should receive inning number
       this.inningData.push(newInning);
       this.activeInning = newInning;
     }
@@ -34,6 +35,14 @@ class InningTracker {
 
   startGame() {
     this.incrementInning();
+  }
+
+  nextInningPhase() {
+    const nextPhase = this.activeInning.nextPhase();
+
+    if (nextPhase === 'complete') {
+      this.incrementInning();
+    }
   }
 
   summary() {
