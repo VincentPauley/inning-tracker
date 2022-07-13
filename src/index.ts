@@ -1,4 +1,6 @@
-import phases from './InningPhases';
+import InningPhase from './interfaces/InningPhase';
+
+import InningPhases from './InningPhases';
 
 class InningTracker {
   // rules
@@ -6,15 +8,29 @@ class InningTracker {
   extraInningsAllowed: boolean;
 
   // state
-  currentInning: number = 0;
+  inningData: InningPhase[][] = [];
 
   constructor(totalInnings: number = 9, extraInningsAllowed: boolean = true) {
     this.totalInnings = totalInnings;
     this.extraInningsAllowed = extraInningsAllowed;
   }
 
+  currentInning() {
+    return this.inningData.length;
+  }
+
+  incrementInning() {
+    this.inningData.push(InningPhases);
+  }
+
+  startGame() {
+    this.incrementInning();
+  }
+
   summary() {
-    return `it's currently inning: ${this.currentInning} of ${this.totalInnings}`;
+    return `it's currently inning: ${this.currentInning()} of ${
+      this.totalInnings
+    }`;
   }
 }
 
