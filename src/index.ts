@@ -22,26 +22,40 @@ class InningTracker {
     this._gameConfiguration.extraInningsAllowed = extraInningsAllowed;
   }
 
+  // private set inningNumber(inning: number): void {
+  //   this._inningNumber = inning;
+  // }
+
+  // TODO: should receive inning number & phase?
+  private _reInitInning() {
+    const newInning = new Inning();
+    this.activeInning = newInning;
+  }
+
   incrementInning(): void {
     // TODO: eventually need to check to see if a winner can be made as  well
     if (this._inningNumber < this._gameConfiguration.totalInnings) {
-      const newInning = new Inning(); // TODO: should receive inning number
       this._inningNumber++;
-      this.activeInning = newInning;
+      this._reInitInning();
     }
   }
 
-  startGame() {
-    this.incrementInning();
+  startGame(inning: number = 1) {
+    this._inningNumber = inning;
+    this._reInitInning();
   }
 
   nextInningPhase() {
     const nextPhase = this.activeInning.nextPhase();
 
-    if (nextPhase === 'complete') {
-      this.incrementInning();
+    if (nextPhase === 'end') {
+      this.incrementInning(); // TODO: probably need to move in next phase
     }
   }
+
+  // TODO: should ideally have a function that will just relay the current
+  // either outs increment to an intermediate step... or it will provide notice
+  // that next phase needs to be manually started.
 
   summary() {
     const inningPhase = this.activeInning.activePhase();
