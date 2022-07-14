@@ -40,14 +40,19 @@ class InningTracker {
     }
   }
 
-  startGame(inning: number = 1) {
-    this._inningNumber = inning;
+  startGame(gameState = { inning: 1, phase: 'top' }) {
     this._reInitInning();
+
+    this._inningNumber = gameState.inning;
+    const phasePosition = this.activeInning.phasePosition(gameState.phase);
+
+    if (phasePosition > -1) {
+      this.activeInning.setCurrentPhasePosition(phasePosition);
+    }
   }
 
   nextInningPhase() {
     const nextPhase = this.activeInning.nextPhase();
-
     if (nextPhase === 'end') {
       this.incrementInning(); // TODO: probably need to move in next phase
     }

@@ -37,11 +37,27 @@ describe('class: InningTracker', () => {
         totalInnings: 9,
         extraInningsAllowed: true
       });
-      testInningTracker.startGame(4); // start in inning 4
+      testInningTracker.startGame({ inning: 4, phase: 'top' }); // start in inning 4
       const inningSummary = testInningTracker.summary();
 
       expect(inningSummary).toBe(
         `it's currently: Top of the 4, we're playing 9 total`
+      );
+    });
+  });
+
+  describe('given an inning is started in a phase other than the top', () => {
+    test('the inning and phase is properly returned', () => {
+      const testInningTracker = new InningTracker({
+        totalInnings: 9,
+        extraInningsAllowed: true
+      });
+      testInningTracker.startGame({ inning: 6, phase: 'mid' });
+
+      const inningSummary = testInningTracker.summary();
+
+      expect(inningSummary).toBe(
+        `it's currently: Middle of the 6, we're playing 9 total`
       );
     });
   });
