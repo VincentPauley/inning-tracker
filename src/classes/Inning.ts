@@ -1,6 +1,9 @@
 import InningPhase from '../interfaces/InningPhase';
 
 export default class Inning {
+  private _currentOuts: number = 0; // no need for constructor input
+  private maxOuts: number = 3;
+
   private _phases: InningPhase[] = [
     { name: 'Top', abbreviation: 'top' },
     { name: 'Middle', abbreviation: 'mid' },
@@ -8,7 +11,11 @@ export default class Inning {
     { name: 'End', abbreviation: 'end' }
   ];
 
-  _currentPhasePosition: number = 0;
+  private _currentPhasePosition: number = 0;
+
+  public get currentOuts() {
+    return this._currentOuts;
+  }
 
   maxPosition(): number {
     return this._phases.length - 1;

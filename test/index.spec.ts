@@ -1,15 +1,6 @@
 import InningTracker from '../src/index';
 
 describe('class: InningTracker', () => {
-  // TODO: a test here for game not ready yet?
-  // describe('given a game is initialized with default values', () => {
-  //   const testInningTracker = new InningTracker();
-  //   test('it provides the expected summary', () => {
-  //     const inningSummary = testInningTracker.summary();
-  //     expect(inningSummary).toBe(`it's currently inning: 0 of 9`);
-  //   });
-  // });
-
   describe('given the startGame method is called', () => {
     const testInningTracker = new InningTracker();
     testInningTracker.startGame();
@@ -17,7 +8,7 @@ describe('class: InningTracker', () => {
     test('the inning tracker can correctly describe the top of the first', () => {
       const inningSummary = testInningTracker.summary();
       expect(inningSummary).toBe(
-        `it's currently: Top of the 1, we're playing 9 total`
+        `it's currently: Top of the 1, 0 outs, we're playing 9 total`
       );
     });
 
@@ -26,7 +17,7 @@ describe('class: InningTracker', () => {
       const inningSummary = testInningTracker.summary();
 
       expect(inningSummary).toBe(
-        `it's currently: Middle of the 1, we're playing 9 total`
+        `it's currently: Middle of the 1, 0 outs, we're playing 9 total`
       );
     });
   });
@@ -41,7 +32,7 @@ describe('class: InningTracker', () => {
       const inningSummary = testInningTracker.summary();
 
       expect(inningSummary).toBe(
-        `it's currently: Top of the 4, we're playing 9 total`
+        `it's currently: Top of the 4, 0 outs, we're playing 9 total`
       );
     });
   });
@@ -57,7 +48,7 @@ describe('class: InningTracker', () => {
       const inningSummary = testInningTracker.summary();
 
       expect(inningSummary).toBe(
-        `it's currently: Middle of the 6, we're playing 9 total`
+        `it's currently: Middle of the 6, 0 outs, we're playing 9 total`
       );
     });
   });

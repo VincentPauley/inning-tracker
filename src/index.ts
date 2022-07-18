@@ -4,6 +4,7 @@ import Inning from './classes/Inning';
 
 class InningTracker {
   private _gameConfiguration: GameConfiguration = {
+    totalOuts: 3,
     totalInnings: 9,
     extraInningsAllowed: true
   };
@@ -64,7 +65,7 @@ class InningTracker {
 
   summary() {
     const inningPhase = this.activeInning.activePhase();
-    return `it's currently: ${inningPhase.name} of the ${this._inningNumber}, we're playing ${this._gameConfiguration.totalInnings} total`;
+    return `it's currently: ${inningPhase.name} of the ${this._inningNumber}, ${this.activeInning.currentOuts} outs, we're playing ${this._gameConfiguration.totalInnings} total`;
   }
 }
 
