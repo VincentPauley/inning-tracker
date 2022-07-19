@@ -135,5 +135,22 @@ describe('class: InningTracker', () => {
         );
       });
     });
+
+    describe('given inning is transitioned from mid to bottom', () => {
+      test('the outs are reset to zero', () => {
+        const testInningTracker = new InningTracker();
+        testInningTracker.startGame();
+        testInningTracker.handleOut(3); // inning to middle
+
+        // move from middle of inning to the bottom
+        testInningTracker.nextInningPhase();
+
+        const summary = testInningTracker.summary();
+
+        expect(summary).toBe(
+          `it's currently: Bottom of the 1, 0 outs, we're playing 9 total`
+        );
+      });
+    });
   });
 });

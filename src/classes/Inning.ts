@@ -18,6 +18,10 @@ export default class Inning {
 
   private _currentPhasePosition: number = 0;
 
+  public set currentOuts(outs: number) {
+    this._currentOuts = outs;
+  }
+
   public get currentOuts() {
     return this._currentOuts;
   }
@@ -72,6 +76,11 @@ export default class Inning {
       throw new Error('impossible phase increase, maximum position exceeded');
     }
     this._currentPhasePosition++;
+
+    // if inning switched to bottom then reset the outs at zero
+    if (this.activePhase().abbreviation === 'bottom') {
+      this.currentOuts = 0;
+    }
     return this.activePhase();
   }
 }
