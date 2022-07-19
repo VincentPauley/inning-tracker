@@ -11,6 +11,11 @@ class InningTracker {
 
   // state
   private _inningNumber: number = 0;
+
+  private set inningNumber(inning: number) {
+    this._inningNumber = inning;
+  }
+
   activeInning: any;
 
   // possibly a separate configuration object and a setup object to start off in different innings
@@ -63,7 +68,7 @@ class InningTracker {
   startGame(gameState = { inning: 1, phase: 'top' }) {
     this._reInitInning();
 
-    this._inningNumber = gameState.inning;
+    this.inningNumber = gameState.inning;
     const phasePosition = this.activeInning.phasePosition(gameState.phase);
 
     if (phasePosition > -1) {
