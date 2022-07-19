@@ -12,6 +12,10 @@ class InningTracker {
   // state
   private _inningNumber: number = 1;
 
+  private get inningNumber(): number {
+    return this._inningNumber;
+  }
+
   private set inningNumber(inning: number) {
     this._inningNumber = inning;
   }
@@ -47,8 +51,8 @@ class InningTracker {
 
   incrementInning(): void {
     // TODO: eventually need to check to see if a winner can be made as  well
-    if (this._inningNumber < this._gameConfiguration.totalInnings) {
-      this.inningNumber = this._inningNumber + 1;
+    if (this.inningNumber < this._gameConfiguration.totalInnings) {
+      this.inningNumber = this.inningNumber + 1;
       this._reInitInning();
     }
   }
@@ -88,7 +92,7 @@ class InningTracker {
 
   summary() {
     const inningPhase = this.activeInning.activePhase();
-    return `it's currently: ${inningPhase.name} of the ${this._inningNumber}, ${this.activeInning.currentOuts} outs, we're playing ${this._gameConfiguration.totalInnings} total`;
+    return `it's currently: ${inningPhase.name} of the ${this.inningNumber}, ${this.activeInning.currentOuts} outs, we're playing ${this._gameConfiguration.totalInnings} total`;
   }
 }
 
