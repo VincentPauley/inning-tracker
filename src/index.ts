@@ -48,7 +48,7 @@ class InningTracker {
   incrementInning(): void {
     // TODO: eventually need to check to see if a winner can be made as  well
     if (this._inningNumber < this._gameConfiguration.totalInnings) {
-      this._inningNumber++;
+      this.inningNumber = this._inningNumber + 1;
       this._reInitInning();
     }
   }
