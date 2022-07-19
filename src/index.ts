@@ -1,4 +1,6 @@
 import GameConfiguration from './interfaces/GameConfiguration';
+import InningState from './interfaces/InningState';
+import InningPhase from './interfaces/InningPhase';
 
 import Inning from './classes/Inning';
 
@@ -89,6 +91,17 @@ class InningTracker {
   // TODO: should ideally have a function that will just relay the current
   // either outs increment to an intermediate step... or it will provide notice
   // that next phase needs to be manually started.
+  public currentState(): InningState {
+    const activeInningNumber: number = this.inningNumber;
+    const activeInningPhase: InningPhase = this.activeInning.activePhase();
+    const currentOuts: number = this.activeInning.currentOuts;
+
+    return {
+      activeInningNumber,
+      activeInningPhase,
+      currentOuts
+    };
+  }
 
   summary() {
     const inningPhase = this.activeInning.activePhase();

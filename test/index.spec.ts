@@ -1,6 +1,22 @@
 import InningTracker from '../src/index';
 
 describe('class: InningTracker', () => {
+  describe('given InningTracker is initiated as default', () => {
+    const testInningTracker = new InningTracker();
+
+    const expectedDefaultState = {
+      activeInningNumber: 1,
+      activeInningPhase: { name: 'Top', abbreviation: 'top', idle: false },
+      currentOuts: 0
+    };
+
+    test('state is accurately returned from currentState()', () => {
+      expect(testInningTracker.currentState()).toMatchObject(
+        expectedDefaultState
+      );
+    });
+  });
+
   describe('given the startGame method is called', () => {
     const testInningTracker = new InningTracker();
 
