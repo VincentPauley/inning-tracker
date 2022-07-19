@@ -49,11 +49,10 @@ export default class Inning {
   }
 
   // adds an out to the inning
-  public increaseOuts(outs: number): void {
+  public increaseOuts(outs: number): number {
     if (!this.isActive()) {
       throw new Error('cannot submit outs when inning is inactive');
     }
-    // TODO: ensure that the inning is in a phase that allows for outs
     if (this._currentOuts >= this._maxOuts) {
       throw new Error('max outs already used');
     }
@@ -63,11 +62,14 @@ export default class Inning {
     }
 
     this._currentOuts += outs;
+
+    return this._currentOuts;
   }
 
+  // TODO: might need to make this a more restricted method
   nextPhase(): InningPhase {
-    if (this._currentPhasePosition > this.maxPosition()) {
-      throw new Error('impossible count');
+    if (this._currentPhasePosition + 1 > this.maxPosition()) {
+      throw new Error('impossible phase increase, maximum position exceeded');
     }
     this._currentPhasePosition++;
     return this.activePhase();

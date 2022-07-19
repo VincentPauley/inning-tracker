@@ -120,5 +120,20 @@ describe('class: InningTracker', () => {
         );
       });
     });
+
+    describe('given the total outs per inning are met', () => {
+      test('inning is incremented to the next phase automatically', () => {
+        const testInningTracker = new InningTracker();
+        testInningTracker.startGame();
+
+        testInningTracker.handleOut(3);
+
+        const summary = testInningTracker.summary();
+
+        expect(summary).toBe(
+          `it's currently: Middle of the 1, 3 outs, we're playing 9 total`
+        );
+      });
+    });
   });
 });

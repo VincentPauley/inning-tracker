@@ -51,7 +51,13 @@ class InningTracker {
   }
 
   handleOut(out: number) {
-    this.activeInning.increaseOuts(out);
+    const totalOuts: number = this.activeInning.increaseOuts(out);
+
+    const { outsPerInning } = this._gameConfiguration;
+
+    if (totalOuts === outsPerInning) {
+      this.nextInningPhase();
+    }
   }
 
   startGame(gameState = { inning: 1, phase: 'top' }) {
