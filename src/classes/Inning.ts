@@ -2,7 +2,7 @@ import InningPhase from '../interfaces/InningPhase';
 
 export default class Inning {
   private _currentOuts: number = 0; // no need for constructor input
-  private maxOuts: number = 3;
+  private _maxOuts: number = 3; // configure from constructor
 
   private _phases: InningPhase[] = [
     { name: 'Top', abbreviation: 'top' },
@@ -10,6 +10,10 @@ export default class Inning {
     { name: 'Bottom', abbreviation: 'bottom' },
     { name: 'End', abbreviation: 'end' }
   ];
+
+  constructor(maxOuts: number = 3) {
+    this._maxOuts = maxOuts;
+  }
 
   private _currentPhasePosition: number = 0;
 
@@ -34,6 +38,15 @@ export default class Inning {
   // TODO: make this into a setter instead:
   public setCurrentPhasePosition(position: number) {
     this._currentPhasePosition = position;
+  }
+
+  // adds an out to the inning
+  public increaseOuts(outs: number): void {
+    console.log('this._currentOuts', this._currentOuts);
+    console.log('this._maxOuts', this._maxOuts);
+    if (this._currentOuts >= this._maxOuts) {
+      throw new Error('max outs already used');
+    }
   }
 
   nextPhase(): InningPhase {

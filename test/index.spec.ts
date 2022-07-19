@@ -26,7 +26,8 @@ describe('class: InningTracker', () => {
     test('then the proper inning can be read out', () => {
       const testInningTracker = new InningTracker({
         totalInnings: 9,
-        extraInningsAllowed: true
+        extraInningsAllowed: true,
+        outsPerInning: 3
       });
       testInningTracker.startGame({ inning: 4, phase: 'top' }); // start in inning 4
       const inningSummary = testInningTracker.summary();
@@ -41,7 +42,8 @@ describe('class: InningTracker', () => {
     test('the inning and phase is properly returned', () => {
       const testInningTracker = new InningTracker({
         totalInnings: 9,
-        extraInningsAllowed: true
+        extraInningsAllowed: true,
+        outsPerInning: 3
       });
       testInningTracker.startGame({ inning: 6, phase: 'mid' });
 
@@ -50,6 +52,24 @@ describe('class: InningTracker', () => {
       expect(inningSummary).toBe(
         `it's currently: Middle of the 6, 0 outs, we're playing 9 total`
       );
+    });
+  });
+
+  describe('test the out tracking functionality', () => {
+    describe('given an out increase is called when the max is already used', () => {
+      test('then an error is thrown when too many out submissions have been made', () => {
+        const testInningTracker = new InningTracker({
+          totalInnings: 9,
+          extraInningsAllowed: true,
+          outsPerInning: 0 // < so max will already be hit
+        });
+        testInningTracker.startGame({ inning: 6, phase: 'mid' });
+        function callTooManyOuts() {
+          testInningTracker.handleOut(1);
+        }
+
+        expect(callTooManyOuts).toThrowError('max outs already used');
+      });
     });
   });
 });

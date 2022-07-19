@@ -4,7 +4,7 @@ import Inning from './classes/Inning';
 
 class InningTracker {
   private _gameConfiguration: GameConfiguration = {
-    totalOuts: 3,
+    outsPerInning: 3,
     totalInnings: 9,
     extraInningsAllowed: true
   };
@@ -15,12 +15,21 @@ class InningTracker {
 
   // possibly a separate configuration object and a setup object to start off in different innings
   constructor(
-    GameConfiguration = { totalInnings: 9, extraInningsAllowed: true }
+    GameConfiguration: GameConfiguration = {
+      totalInnings: 9,
+      extraInningsAllowed: true,
+      outsPerInning: 3
+    }
   ) {
-    const { totalInnings, extraInningsAllowed } = GameConfiguration;
+    const {
+      totalInnings,
+      extraInningsAllowed,
+      outsPerInning
+    } = GameConfiguration;
 
     this._gameConfiguration.totalInnings = totalInnings;
     this._gameConfiguration.extraInningsAllowed = extraInningsAllowed;
+    this._gameConfiguration.outsPerInning = outsPerInning;
   }
 
   // private set inningNumber(inning: number): void {
@@ -29,7 +38,7 @@ class InningTracker {
 
   // TODO: should receive inning number & phase?
   private _reInitInning() {
-    const newInning = new Inning();
+    const newInning = new Inning(this._gameConfiguration.outsPerInning);
     this.activeInning = newInning;
   }
 
@@ -39,6 +48,10 @@ class InningTracker {
       this._inningNumber++;
       this._reInitInning();
     }
+  }
+
+  handleOut(out: number) {
+    this.activeInning.increaseOuts(out);
   }
 
   startGame(gameState = { inning: 1, phase: 'top' }) {

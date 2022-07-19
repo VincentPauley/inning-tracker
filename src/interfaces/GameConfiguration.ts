@@ -1,5 +1,5 @@
 export default interface GameConfiguration {
-  totalOuts: number;
+  outsPerInning: number;
   totalInnings: number;
   extraInningsAllowed: boolean;
 }
