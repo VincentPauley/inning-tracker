@@ -3,7 +3,6 @@ import InningTracker from '../src/index';
 describe('class: InningTracker', () => {
   describe('given the startGame method is called', () => {
     const testInningTracker = new InningTracker();
-    testInningTracker.startGame();
 
     test('the inning tracker can correctly describe the top of the first', () => {
       const inningSummary = testInningTracker.summary();
@@ -63,7 +62,6 @@ describe('class: InningTracker', () => {
           extraInningsAllowed: true,
           outsPerInning: 0 // < so max will already be hit
         });
-        testInningTracker.startGame();
         function callTooManyOuts() {
           testInningTracker.handleOut(1);
         }
@@ -79,7 +77,6 @@ describe('class: InningTracker', () => {
           extraInningsAllowed: true,
           outsPerInning: 3 // < so max will already be hit
         });
-        testInningTracker.startGame();
         function callTooManyOuts() {
           testInningTracker.handleOut(4);
         }
@@ -94,7 +91,6 @@ describe('class: InningTracker', () => {
       test('then the outs are increased accordingly', () => {
         const testInningTracker = new InningTracker();
 
-        testInningTracker.startGame();
         testInningTracker.handleOut(1);
 
         const inningSummary = testInningTracker.summary();
@@ -124,8 +120,6 @@ describe('class: InningTracker', () => {
     describe('given the total outs per inning are met', () => {
       test('inning is incremented to the next phase automatically', () => {
         const testInningTracker = new InningTracker();
-        testInningTracker.startGame();
-
         testInningTracker.handleOut(3);
 
         const summary = testInningTracker.summary();
@@ -139,7 +133,6 @@ describe('class: InningTracker', () => {
     describe('given inning is transitioned from mid to bottom', () => {
       test('the outs are reset to zero', () => {
         const testInningTracker = new InningTracker();
-        testInningTracker.startGame();
         testInningTracker.handleOut(3); // inning to middle
 
         // move from middle of inning to the bottom

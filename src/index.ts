@@ -10,13 +10,13 @@ class InningTracker {
   };
 
   // state
-  private _inningNumber: number = 0;
+  private _inningNumber: number = 1;
 
   private set inningNumber(inning: number) {
     this._inningNumber = inning;
   }
 
-  activeInning: any;
+  activeInning: Inning;
 
   // possibly a separate configuration object and a setup object to start off in different innings
   constructor(
@@ -35,11 +35,9 @@ class InningTracker {
     this._gameConfiguration.totalInnings = totalInnings;
     this._gameConfiguration.extraInningsAllowed = extraInningsAllowed;
     this._gameConfiguration.outsPerInning = outsPerInning;
-  }
 
-  // private set inningNumber(inning: number): void {
-  //   this._inningNumber = inning;
-  // }
+    this.activeInning = new Inning(this._gameConfiguration.outsPerInning);
+  }
 
   // TODO: should receive inning number & phase?
   private _reInitInning() {
@@ -65,11 +63,12 @@ class InningTracker {
     }
   }
 
+  // don't really need to call this in order to  start game, rather to set away from defaults
   startGame(gameState = { inning: 1, phase: 'top' }) {
-    this._reInitInning();
+    const { inning, phase } = gameState;
 
-    this.inningNumber = gameState.inning;
-    const phasePosition = this.activeInning.phasePosition(gameState.phase);
+    this.inningNumber = inning;
+    const phasePosition = this.activeInning.phasePosition(phase);
 
     if (phasePosition > -1) {
       this.activeInning.setCurrentPhasePosition(phasePosition);
@@ -78,7 +77,7 @@ class InningTracker {
 
   nextInningPhase() {
     const nextPhase = this.activeInning.nextPhase();
-    if (nextPhase === 'end') {
+    if (nextPhase.abbreviation === 'end') {
       this.incrementInning(); // TODO: probably need to move in next phase
     }
   }
