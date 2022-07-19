@@ -2,13 +2,14 @@ import InningPhase from '../interfaces/InningPhase';
 
 export default class Inning {
   private _currentOuts: number = 0; // no need for constructor input
-  private _maxOuts: number = 3; // configure from constructor
+  private _maxOuts: number = 3;
 
-  private _phases: InningPhase[] = [
-    { name: 'Top', abbreviation: 'top' },
-    { name: 'Middle', abbreviation: 'mid' },
-    { name: 'Bottom', abbreviation: 'bottom' },
-    { name: 'End', abbreviation: 'end' }
+  // use tuple here to keep array constant
+  private _phases: [InningPhase, InningPhase, InningPhase, InningPhase] = [
+    { name: 'Top', abbreviation: 'top', idle: false },
+    { name: 'Middle', abbreviation: 'mid', idle: true },
+    { name: 'Bottom', abbreviation: 'bottom', idle: false },
+    { name: 'End', abbreviation: 'end', idle: true }
   ];
 
   constructor(maxOuts: number = 3) {
@@ -21,6 +22,13 @@ export default class Inning {
     return this._currentOuts;
   }
 
+  // returns true when inning is in an active phase and not idling
+  isActive(): boolean {
+    const { idle } = this.activePhase();
+    return !idle;
+  }
+
+  // TODO: make this private?
   maxPosition(): number {
     return this._phases.length - 1;
   }
@@ -42,6 +50,10 @@ export default class Inning {
 
   // adds an out to the inning
   public increaseOuts(outs: number): void {
+    if (!this.isActive()) {
+      throw new Error('cannot submit outs when inning is inactive');
+    }
+    // TODO: ensure that the inning is in a phase that allows for outs
     if (this._currentOuts >= this._maxOuts) {
       throw new Error('max outs already used');
     }
@@ -50,7 +62,7 @@ export default class Inning {
       throw new Error('outs received exceed max allowed');
     }
 
-    // TODO: ACTUALLY DO THE OUT INCREMENT
+    this._currentOuts += outs;
   }
 
   nextPhase(): InningPhase {

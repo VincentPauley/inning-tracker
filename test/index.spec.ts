@@ -63,7 +63,7 @@ describe('class: InningTracker', () => {
           extraInningsAllowed: true,
           outsPerInning: 0 // < so max will already be hit
         });
-        testInningTracker.startGame({ inning: 6, phase: 'mid' });
+        testInningTracker.startGame();
         function callTooManyOuts() {
           testInningTracker.handleOut(1);
         }
@@ -79,13 +79,44 @@ describe('class: InningTracker', () => {
           extraInningsAllowed: true,
           outsPerInning: 3 // < so max will already be hit
         });
-        testInningTracker.startGame({ inning: 6, phase: 'mid' });
+        testInningTracker.startGame();
         function callTooManyOuts() {
           testInningTracker.handleOut(4);
         }
 
         expect(callTooManyOuts).toThrowError(
           'outs received exceed max allowed'
+        );
+      });
+    });
+
+    describe('given outs are increased by a set number', () => {
+      test('then the outs are increased accordingly', () => {
+        const testInningTracker = new InningTracker();
+
+        testInningTracker.startGame();
+        testInningTracker.handleOut(1);
+
+        const inningSummary = testInningTracker.summary();
+
+        expect(inningSummary).toBe(
+          `it's currently: Top of the 1, 1 outs, we're playing 9 total`
+        );
+      });
+    });
+
+    describe('given outs are increased during a phase where that is not possible', () => {
+      test('then an error is thrown indicating the inning needs to be advanced', () => {
+        const testInningTracker = new InningTracker();
+
+        testInningTracker.startGame({ inning: 6, phase: 'mid' });
+
+        function callOutWhileInningInActive() {
+          testInningTracker.handleOut(1);
+        }
+
+        expect(callOutWhileInningInActive).toThrowError(
+          'cannot submit outs when inning is inactive'
         );
       });
     });
