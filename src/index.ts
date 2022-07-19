@@ -4,6 +4,8 @@ import InningPhase from './interfaces/InningPhase';
 
 import Inning from './classes/Inning';
 
+import AppendOrdinalSuffix from './util/appendOrdinalSuffix';
+
 class InningTracker {
   private _gameConfiguration: GameConfiguration = {
     outsPerInning: 3,
@@ -95,12 +97,34 @@ class InningTracker {
     const activeInningNumber: number = this.inningNumber;
     const activeInningPhase: InningPhase = this.activeInning.activePhase();
     const currentOuts: number = this.activeInning.currentOuts;
+    const summary: string = this.createSummary(
+      activeInningPhase,
+      activeInningNumber,
+      currentOuts
+    );
 
     return {
       activeInningNumber,
       activeInningPhase,
-      currentOuts
+      currentOuts,
+      summary
     };
+  }
+
+  private createSummary(
+    currentInningPhase: InningPhase,
+    currentInningNumber: number,
+    currentOuts: number
+  ): string {
+    const outQuantity: string | number = currentOuts === 0 ? 'no' : currentOuts;
+    const outSuffix: string = currentOuts === 1 ? 'out' : 'outs';
+
+    return [
+      currentInningPhase.name,
+      'of the',
+      `${AppendOrdinalSuffix(currentInningNumber)},`,
+      `${outQuantity} ${outSuffix}.`
+    ].join(' ');
   }
 
   summary() {

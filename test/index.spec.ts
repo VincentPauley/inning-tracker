@@ -7,7 +7,8 @@ describe('class: InningTracker', () => {
     const expectedDefaultState = {
       activeInningNumber: 1,
       activeInningPhase: { name: 'Top', abbreviation: 'top', idle: false },
-      currentOuts: 0
+      currentOuts: 0,
+      summary: 'Top of the 1st, no outs.'
     };
 
     test('state is accurately returned from currentState()', () => {
@@ -19,13 +20,6 @@ describe('class: InningTracker', () => {
 
   describe('given the startGame method is called', () => {
     const testInningTracker = new InningTracker();
-
-    test('the inning tracker can correctly describe the top of the first', () => {
-      const inningSummary = testInningTracker.summary();
-      expect(inningSummary).toBe(
-        `it's currently: Top of the 1, 0 outs, we're playing 9 total`
-      );
-    });
 
     test('the inning tracker can correctly move an inning into the next phase', () => {
       testInningTracker.nextInningPhase();

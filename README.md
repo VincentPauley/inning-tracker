@@ -37,7 +37,8 @@ Example Return:
 {
   activeInningNumber: 1,
   activeInningPhase: { name: 'Top', abbreviation: 'top', idle: false },
-  currentOuts: 0
+  currentOuts: 0,
+  summary: 'Top of the 1st, no outs.'
 }
 ```
 

@@ -4,4 +4,5 @@ export default interface InningState {
   activeInningNumber: number;
   activeInningPhase: InningPhase;
   currentOuts: number;
+  summary: string;
 }
