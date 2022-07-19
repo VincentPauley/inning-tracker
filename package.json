@@ -1,11 +1,12 @@
 {
   "name": "inning-tracker",
   "version": "1.0.0",
-  "description": "Focused module for tracking the state of innings during a baseball game.",
-  "main": "index.js",
+  "description": "Focused module for tracking the state of innings/outs during a baseball game.",
+  "main": "lib/index.js",
   "scripts": {
     "build": "webpack",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
