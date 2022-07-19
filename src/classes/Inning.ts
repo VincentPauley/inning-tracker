@@ -42,11 +42,15 @@ export default class Inning {
 
   // adds an out to the inning
   public increaseOuts(outs: number): void {
-    console.log('this._currentOuts', this._currentOuts);
-    console.log('this._maxOuts', this._maxOuts);
     if (this._currentOuts >= this._maxOuts) {
       throw new Error('max outs already used');
     }
+
+    if (this._currentOuts + outs > this._maxOuts) {
+      throw new Error('outs received exceed max allowed');
+    }
+
+    // TODO: ACTUALLY DO THE OUT INCREMENT
   }
 
   nextPhase(): InningPhase {

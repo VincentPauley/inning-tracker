@@ -71,5 +71,23 @@ describe('class: InningTracker', () => {
         expect(callTooManyOuts).toThrowError('max outs already used');
       });
     });
+
+    describe('given an out increase is called that exceeds maximum', () => {
+      test('then an error is thrown thrown explaining that issue', () => {
+        const testInningTracker = new InningTracker({
+          totalInnings: 9,
+          extraInningsAllowed: true,
+          outsPerInning: 3 // < so max will already be hit
+        });
+        testInningTracker.startGame({ inning: 6, phase: 'mid' });
+        function callTooManyOuts() {
+          testInningTracker.handleOut(4);
+        }
+
+        expect(callTooManyOuts).toThrowError(
+          'outs received exceed max allowed'
+        );
+      });
+    });
   });
 });
