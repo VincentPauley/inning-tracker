@@ -18,31 +18,41 @@ describe('class: InningTracker', () => {
     });
   });
 
-  describe('given the startGame method is called', () => {
+  describe('given method is called to advance inning phase', () => {
     const testInningTracker = new InningTracker();
 
-    test('the inning tracker can correctly move an inning into the next phase', () => {
-      testInningTracker.nextInningPhase();
-      const inningSummary = testInningTracker.summary();
+    const expectedDefaultState = {
+      activeInningNumber: 1,
+      activeInningPhase: { name: 'Middle', abbreviation: 'mid', idle: true },
+      currentOuts: 0,
+      summary: 'Middle of the 1st, no outs.'
+    };
 
-      expect(inningSummary).toBe(
-        `it's currently: Middle of the 1, 0 outs, we're playing 9 total`
+    test('the inning tracker can correctly move an inning into the next phase', () => {
+      // TODO: this should throw an error - should need to do it
+      testInningTracker.nextInningPhase();
+
+      expect(testInningTracker.currentState()).toMatchObject(
+        expectedDefaultState
       );
     });
   });
 
   describe('given a game is initialized in the middle of a  game', () => {
     test('then the proper inning can be read out', () => {
-      const testInningTracker = new InningTracker({
-        totalInnings: 9,
-        extraInningsAllowed: true,
-        outsPerInning: 3
-      });
-      testInningTracker.startGame({ inning: 4, phase: 'top' }); // start in inning 4
-      const inningSummary = testInningTracker.summary();
+      const testInningTracker = new InningTracker();
 
-      expect(inningSummary).toBe(
-        `it's currently: Top of the 4, 0 outs, we're playing 9 total`
+      testInningTracker.startGame({ inning: 4, phase: 'top' }); // start in inning 4
+
+      const expectedDefaultState = {
+        activeInningNumber: 4,
+        activeInningPhase: { name: 'Top', abbreviation: 'top', idle: false },
+        currentOuts: 0,
+        summary: 'Top of the 4th, no outs.'
+      };
+
+      expect(testInningTracker.currentState()).toMatchObject(
+        expectedDefaultState
       );
     });
   });
