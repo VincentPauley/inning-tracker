@@ -29,12 +29,10 @@ describe('class: InningTracker', () => {
     };
 
     test('the inning tracker can correctly move an inning into the next phase', () => {
-      // TODO: this should throw an error - should need to do it
-      testInningTracker.nextInningPhase();
+      // TODO: this should throw an error - should need to do it through outs
+      const updatedState = testInningTracker.nextInningPhase();
 
-      expect(testInningTracker.currentState()).toMatchObject(
-        expectedDefaultState
-      );
+      expect(updatedState).toMatchObject(expectedDefaultState);
     });
   });
 
@@ -109,9 +107,6 @@ describe('class: InningTracker', () => {
     describe('given outs are increased by a legitimate number', () => {
       test('then the outs are increased by that number', () => {
         const testInningTracker: InningTracker = new InningTracker();
-
-        testInningTracker.handleOut(1);
-
         const expectedState = {
           activeInningNumber: 1,
           activeInningPhase: { name: 'Top', abbreviation: 'top', idle: false },
@@ -119,7 +114,9 @@ describe('class: InningTracker', () => {
           summary: 'Top of the 1st, 1 out.'
         };
 
-        expect(testInningTracker.currentState()).toMatchObject(expectedState);
+        const updatedState = testInningTracker.handleOut(1);
+
+        expect(updatedState).toMatchObject(expectedState);
       });
     });
 
@@ -142,7 +139,7 @@ describe('class: InningTracker', () => {
     describe('given the total outs per inning are met', () => {
       test('inning is incremented to the next phase automatically', () => {
         const testInningTracker: InningTracker = new InningTracker();
-        testInningTracker.handleOut(3);
+        const updatedState = testInningTracker.handleOut(3);
 
         const expectedState = {
           activeInningNumber: 1,
@@ -155,7 +152,7 @@ describe('class: InningTracker', () => {
           summary: 'Middle of the 1st, 3 outs.'
         };
 
-        expect(testInningTracker.currentState()).toMatchObject(expectedState);
+        expect(updatedState).toMatchObject(expectedState);
       });
     });
 
@@ -165,7 +162,7 @@ describe('class: InningTracker', () => {
         testInningTracker.handleOut(3); // inning to middle
 
         // move from middle of inning to the bottom
-        testInningTracker.nextInningPhase();
+        const updatedState = testInningTracker.nextInningPhase();
 
         const expectedState = {
           activeInningNumber: 1,
@@ -178,7 +175,7 @@ describe('class: InningTracker', () => {
           summary: 'Bottom of the 1st, no outs.'
         };
 
-        expect(testInningTracker.currentState()).toMatchObject(expectedState);
+        expect(updatedState).toMatchObject(expectedState);
       });
     });
   });

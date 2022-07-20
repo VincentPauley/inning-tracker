@@ -61,14 +61,18 @@ class InningTracker {
     }
   }
 
-  handleOut(out: number) {
+  handleOut(out: number): InningState {
     const totalOuts: number = this.activeInning.increaseOuts(out);
 
-    const { outsPerInning } = this._gameConfiguration;
+    const {
+      outsPerInning
+    }: { outsPerInning: number } = this._gameConfiguration;
 
     if (totalOuts === outsPerInning) {
       this.nextInningPhase();
     }
+
+    return this.currentState();
   }
 
   // don't really need to call this in order to  start game, rather to set away from defaults
@@ -88,6 +92,8 @@ class InningTracker {
     if (nextPhase.abbreviation === 'end') {
       this.incrementInning(); // TODO: probably need to move in next phase
     }
+
+    return this.currentState();
   }
 
   // TODO: should ideally have a function that will just relay the current
