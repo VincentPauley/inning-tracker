@@ -1,4 +1,4 @@
-import InningPhase from '../interfaces/InningPhase';
+import InningPhase from '@/interfaces/InningPhase';
 
 export default class Inning {
   private _currentOuts: number = 0; // no need for constructor input
